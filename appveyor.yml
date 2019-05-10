@@ -4,7 +4,7 @@ version: 1.34.0-{build}
 image: Visual Studio 2015
 
 environment:
-CCACHE_DIR: "%APPVEYOR_BUILD_FOLDER%\\.ccache"
+   CCACHE_DIR: "%APPVEYOR_BUILD_FOLDER%\\.ccache"
 
 matrix:
   # We always want 32-bit and 64-bit compilation
