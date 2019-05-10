@@ -1,9 +1,34 @@
 version: 1.34.0-{build}
+
+# use an image with recent Mingw-w64 versions available on both architectures: https://www.appveyor.com/docs/windows-images-software/#mingw-msys-cygwin
+image: Visual Studio 2015
+
+matrix:
+  # We always want 32-bit and 64-bit compilation
+  fast_finish: false
+  
+platform:
+  - x86
+  - x64
+  
+# when multiple CI builds are queued, the tested commit needs to be in the last X commits cloned with "--depth X"
+clone_depth: 10
+
 skip_tags: true
+
+cache:
+  - C:\msys64\var\cache\pacman\pkg -> appveyor.yml, build-aria2.sh
+
 init:
+- ps: IF ($env:APPVEYOR_REPO_BRANCH =! "develop") {$env:APPVEYOR_SAVE_CACHE_ON_ERROR = "true"}
   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
 install:
-- ps: >-
+  # use the newest versions documented here: https://www.appveyor.com/docs/windows-images-software/#mingw-msys-cygwin
+  - IF "%PLATFORM%" == "x86" SET PATH=C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\bin;%PATH%
+  - IF "%PLATFORM%" == "x64" SET PATH=C:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin;%PATH%
+  ####- IF "%PLATFORM%" == "x86" SET MC:\msys64\usr\bin\
+  - ps: >-
     $gitData = ConvertFrom-StringData (git log -1 --format=format:"commitId=%H%nmessage=%s%ncommitted=%aD" | out-string)
 
     if ($gitData['message'] -eq "") { $gitData['message'] = "No commit message available for $($gitData['commitid'])" }
@@ -11,6 +36,7 @@ install:
     # View the data with Write-Output @gitData
 
     Update-AppveyorBuild @gitData
+
 build_script:
 - cmd: >-
     C:\msys64\usr\bin\pacman -Syyuu --noconfirm --ask=20
@@ -19,7 +45,8 @@ build_script:
 
     C:\msys64\usr\bin\pacman -S --noconfirm --needed --ask=20 base-devel zlib-devel sqlite git unzip zip tar gmp gmp-devel libssh2 libssh2-devel openssl-devel
 
-    set MSYSTEM=MINGW64
+    #set MSYSTEM=MINGW64
+    IF "%PLATFORM%" == "x64" set MSYSTEM=MINGW64
 
     C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ./build-aria2.sh"
 
@@ -29,7 +56,8 @@ build_script:
 
     rd /s /q aria2
 
-    set MSYSTEM=MINGW32
+    #set MSYSTEM=MINGW32
+    IF "%PLATFORM%" == "x86" set MSYSTEM=MINGW32
 
     C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ./build-aria2.sh"
 
