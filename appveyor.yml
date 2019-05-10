@@ -20,6 +20,7 @@ cache:
   - C:\msys64\var\cache\pacman\pkg -> appveyor.yml, build-aria2.sh
 
 init:
+- ps: IF ($env:APPVEYOR_REPO_BRANCH =! "develop") {$env:APPVEYOR_SAVE_CACHE_ON_ERROR = "true"}
 - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 install:
