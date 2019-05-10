@@ -1,5 +1,7 @@
 version: 1.34.0-{build}
 skip_tags: true
+init:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 install:
 - ps: >-
     $gitData = ConvertFrom-StringData (git log -1 --format=format:"commitId=%H%nmessage=%s%ncommitted=%aD" | out-string)
@@ -40,3 +42,5 @@ skip_commits:
     - 'LICENSE'
     - '*.md'
     - '.gitingore'
+on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
