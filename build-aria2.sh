@@ -30,7 +30,7 @@ if [[ "${GIT_USER_EMAIL}" = "" ]]; then
     git config --global user.email "you@example.com"
 fi
 
-pacman -S --noconfirm --needed $MINGW_PACKAGE_PREFIX-gcc \
+pacman -S --noconfirm --needed --cache "$unix_msys2_cache" $MINGW_PACKAGE_PREFIX-gcc \
     $MINGW_PACKAGE_PREFIX-expat \
     $MINGW_PACKAGE_PREFIX-gmp \
     $MINGW_PACKAGE_PREFIX-c-ares \
