@@ -1,8 +1,10 @@
 version: 1.34.0-{build}
 
+# use http://yaml-online-parser.appspot.com/ for syntax checking
+
 environment:
     global:
-    APPVEYOR_SAVE_CACHE_ON_ERROR: true
+      APPVEYOR_SAVE_CACHE_ON_ERROR: true
       CI_CACHE: C:\ci_cache
       CI_CACHE_UNIX: /c/ci_cache
       DOXYGEN_INST_DIR: '%CI_CACHE%\doxygen'
@@ -13,6 +15,8 @@ environment:
       TAR_CACHE_UNIX: '%CI_CACHE_UNIX%/tar'
       CCACHE_CACHE: '%CI_CACHE%\ccache'
       CCACHE_CACHE_UNIX: '%CI_CACHE_UNIX%/ccache'
+      #add CCACHE_DIR as unix format
+      CCACHE_DIR: '%CCACHE_CACHE_UNIX%'
       MSYS2_CACHE: '%CI_CACHE%\msys2'
       MSYS2_CACHE_UNIX: '%CI_CACHE_UNIX%/msys2'
       CHOCO_CACHE: '%CI_CACHE%\choco'
