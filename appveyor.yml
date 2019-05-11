@@ -1,5 +1,14 @@
 version: 1.34.0-{build}
 
+  environment:
+    global:
+      CI_CACHE: C:\ci_cache
+      DOXYGEN_INST_DIR: '%CI_CACHE%\doxygen'
+      CYG_CACHE: '%CI_CACHE%\cygwin'
+      MSYS2_CACHE: '%CI_CACHE%\msys2'
+      CHOCO_CACHE: '%CI_CACHE%\choco'
+      WLK_INST_CACHE: '%CI_CACHE%\wlk_inst'
+
 # use an image with recent Mingw-w64 versions available on both architectures: https://www.appveyor.com/docs/windows-images-software/#mingw-msys-cygwin
 image: Visual Studio 2015
 
@@ -21,6 +30,7 @@ cache:
   ###- C:\msys64\var\cache\pacman\pkg -> build-aria2.sh
   ###- expat-*.tar.bz2 -> build-aria2.sh
 - C:\msys64\var\cache\pacman\pkg
+- '%DOKAN_CI_CACHE% -> FOOappveyor.yml'
 #- expat-*.tar.bz2
 #- sqlite-autoconf-*.tar.gz
 #- c-ares-*.tar.gz
@@ -32,6 +42,36 @@ init:
 - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 install:
+    - ps: |
+        function bash($bash_command) {
+            Write-Host "MSYS2-Bash: $bash_command"
+            Exec-External {& C:\msys64\usr\bin\bash.exe --login -c $bash_command }
+            Write-Host "MSYS2-Bash $bash_command " -NoNewLine
+            Write-Host "[ OK ]" -ForegroundColor Green
+          }
+          New-Item -Force -Type Directory $env:MSYS2_CACHE
+          $unix_msys2_cache = (Exec-External {& C:\msys64\usr\bin\bash.exe --login -c "cygpath '${env:MSYS2_CACHE}'"})
+          # We run the upgrade three times, because MSYS2 cannot upgrade itself without restarting
+          # TODO: detect if restart is necessary and only run as many times as needed.
+          #       Maybe two times is enough in all cases, but better be safe than sorry and run it three times.
+          # See https://github.com/msys2/msys2/wiki/MSYS2-installation#iii-updating-packages
+          # For the `--ask 20` option, see
+          # <https://github.com/Alexpux/MSYS2-packages/issues/1141>.
+          #
+          # Otherwise the message
+          #
+          #     :: msys2-runtime and catgets are in conflict. Remove catgets? [y/N]
+          #
+          # is displayed when trying to update followed by an exit rather
+          # than selecting yes.
+          for ($i = 0; $i -lt 3; $i++) {
+            bash "pacman -Syuu --ask 20 --noconfirm --cache `"$unix_msys2_cache`""
+          }
+          # install MinGW toolchain
+          bash "pacman --sync --needed --noconfirm --cache `"$unix_msys2_cache`" mingw-w64-{x86_64,i686}-toolchain mingw-w64-{x86_64,i686}-cmake"
+          
+
+
   # use the newest versions documented here: https://www.appveyor.com/docs/windows-images-software/#mingw-msys-cygwin
 - cmd: IF "%PLATFORM%" == "x86" SET PATH=C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\bin;%PATH%
 - cmd: IF "%PLATFORM%" == "x64" SET PATH=C:\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin;%PATH%
@@ -52,13 +92,17 @@ build_script:
 
     C:\msys64\usr\bin\pacman -S --noconfirm --needed --ask=20 base-devel zlib-devel sqlite git unzip zip tar gmp gmp-devel libssh2 libssh2-devel openssl-devel
     
-    C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 sqlite expat gmp c-ares winpthreads libssh2
+    REM C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 sqlite expat gmp c-ares winpthreads libssh2
+    C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 sqlite expat gmp libssh2
     
-    C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 sqlite-devel expat-devel gmp-devel c-ares-devel winpthreads-devel libssh2-devel
+    REM C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 sqlite-devel expat-devel gmp-devel c-ares-devel winpthreads-devel libssh2-devel
+    C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 sqlite-devel expat-devel gmp-devel libssh2-devel
     
-    C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 mingw-w64-x86_64-sqlite mingw-w64-x86_64-expat mingw-w64-x86_64-gmp mingw-w64-x86_64-c-ares mingw-w64-x86_64-winpthreads mingw-w64-x86_64-libssh2
+    REM C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 mingw-w64-x86_64-sqlite mingw-w64-x86_64-expat mingw-w64-x86_64-gmp mingw-w64-x86_64-c-ares mingw-w64-x86_64-winpthreads mingw-w64-x86_64-libssh2
+    C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 mingw-w64-x86_64-sqlite mingw-w64-x86_64-expat mingw-w64-x86_64-gmp mingw-w64-x86_64-libssh2
     
-    C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 mingw-w64-i686-sqlite mingw-w64-i686-expat mingw-w64-i686-gmp mingw-w64-i686-c-ares mingw-w64-i686-winpthreads mingw-w64-i686-libssh2
+    REM C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 mingw-w64-i686-sqlite mingw-w64-i686-expat mingw-w64-i686-gmp mingw-w64-i686-c-ares mingw-w64-i686-winpthreads mingw-w64-i686-libssh2
+    C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 mingw-w64-i686-sqlite mingw-w64-i686-expat mingw-w64-i686-gmp mingw-w64-i686-libssh2
 
     REM :::#set MSYSTEM=MINGW64
     IF "%PLATFORM%" == "x64" set MSYSTEM=MINGW64
