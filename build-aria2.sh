@@ -24,7 +24,9 @@ pacman -S --noconfirm --needed $MINGW_PACKAGE_PREFIX-gcc \
     $MINGW_PACKAGE_PREFIX-expat \
     $MINGW_PACKAGE_PREFIX-gmp \
     $MINGW_PACKAGE_PREFIX-c-ares \
-    $MINGW_PACKAGE_PREFIX-winpthreads
+    $MINGW_PACKAGE_PREFIX-winpthreads \
+    $MINGW_PACKAGE_PREFIX-sqlite \
+    $MINGW_PACKAGE_PREFIX-libssh2
 
 PREFIX=/usr/local/$HOST
 CPUCOUNT=$(grep -c ^processor /proc/cpuinfo)
