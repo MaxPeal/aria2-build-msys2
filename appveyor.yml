@@ -1,6 +1,6 @@
 version: 1.34.0-{build}
 
-  environment:
+environment:
     global:
       CI_CACHE: C:\ci_cache
       DOXYGEN_INST_DIR: '%CI_CACHE%\doxygen'
