@@ -5,6 +5,8 @@ environment:
       CI_CACHE: C:\ci_cache
       DOXYGEN_INST_DIR: '%CI_CACHE%\doxygen'
       CYG_CACHE: '%CI_CACHE%\cygwin'
+      TAR_CACHE: '%CI_CACHE%\tar'
+      CCACHE_CACHE: '%CI_CACHE%\ccache'
       MSYS2_CACHE: '%CI_CACHE%\msys2'
       CHOCO_CACHE: '%CI_CACHE%\choco'
       WLK_INST_CACHE: '%CI_CACHE%\wlk_inst'
@@ -29,8 +31,8 @@ cache:
   ###- C:\msys64\var\cache\pacman\pkg -> appveyor.yml, build-aria2.sh
   ###- C:\msys64\var\cache\pacman\pkg -> build-aria2.sh
   ###- expat-*.tar.bz2 -> build-aria2.sh
-- C:\msys64\var\cache\pacman\pkg
-- 'CI_CACHE% -> FOOappveyor.yml'
+- C:\msys64\var\cache\pacman\pkg -> appveyor.yml
+- '%CI_CACHE% -> FOOappveyor.yml'
 #- expat-*.tar.bz2
 #- sqlite-autoconf-*.tar.gz
 #- c-ares-*.tar.gz
@@ -78,6 +80,13 @@ install:
             Write-Host "MSYS2-Bash $bash_command " -NoNewLine
             Write-Host "[ OK ]" -ForegroundColor Green
           }
+          
+          New-Item -Force -Type Directory $env:TAR_CACHE
+          $unix_tar_cache = (Exec-External {& C:\msys64\usr\bin\bash.exe --login -c "cygpath '${env:TAR_CACHE}'"})
+
+          New-Item -Force -Type Directory $env:CCACHE_CACHE
+          $unix_ccache_cache = (Exec-External {& C:\msys64\usr\bin\bash.exe --login -c "cygpath '${env:CCACHE_CACHE}'"})
+          
           New-Item -Force -Type Directory $env:MSYS2_CACHE
           $unix_msys2_cache = (Exec-External {& C:\msys64\usr\bin\bash.exe --login -c "cygpath '${env:MSYS2_CACHE}'"})
           # We run the upgrade three times, because MSYS2 cannot upgrade itself without restarting
