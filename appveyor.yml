@@ -61,7 +61,8 @@ build_script:
 
     appveyor PushArtifact aria2c.7z
 
-    rd /s /q aria2
+    REM rd /s /q aria2
+    ren aria2 aria2-x64
 
     REM ::::#set MSYSTEM=MINGW32
     IF "%PLATFORM%" == "x86" set MSYSTEM=MINGW32
