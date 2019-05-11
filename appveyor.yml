@@ -43,6 +43,35 @@ init:
 
 install:
 - ps: |
+        New-Item -ItemType Directory -Force -Path ${env:CI_CACHE} | Out-Null
+- ps: |
+        function Exec-External {
+          param(
+            [Parameter(Position=0,Mandatory=1)][scriptblock] $command
+          )
+          & $command
+          if ($LASTEXITCODE -ne 0) {
+            throw ("Command returned non-zero error-code ${LASTEXITCODE}: $command")
+          }
+        }
+
+- ps: |
+          function downloadIfOlderThanDays($url, $path, $days) {
+            if ( !(Test-Path $path -NewerThan (Get-Date).AddDays(-$days)) ) {
+              Write-Host "$path does not exist or is older than $days days, downloading from $url"
+              Invoke-WebRequest $url -OutFile $path
+            }
+          }
+          downloadIfOlderThanDays "https://cygwin.com/setup-x86_64.exe" "${env:DOKAN_CI_CACHE}\setup-x86_64.exe" 7
+          function updateCygwin($cygwinexe, $installFolder, $cacheFolder) {
+            Write-Host "Update Cygwin: $cygwinexe"
+            Exec-External {& cmd /c $cygwinexe -gqnNdO -R $installFolder -s http://mirrors.kernel.org/sourceware/cygwin/ -l $cacheFolder -P cmake -P make -P gcc-core -P gcc-g++ -P pkg-config -P cygwin32-gcc-core -P cygwin32-gcc-g++}
+            Write-Host "Update Cygwin: $cygwinexe " -NoNewLine
+            Write-Host "[ OK ]" -ForegroundColor Green
+          }
+          updateCygwin "${env:DOKAN_CI_CACHE}\setup-x86_64.exe" C:/cygwin64 $env:CYG_CACHE
+
+- ps: |
         function bash($bash_command) {
             Write-Host "MSYS2-Bash: $bash_command"
             Exec-External {& C:\msys64\usr\bin\bash.exe --login -c $bash_command }
