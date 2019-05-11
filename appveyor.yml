@@ -62,8 +62,7 @@ init:
 
 install:
 - ps: |
-
-         New-Item -ItemType Directory -Force -Path ${env:CI_CACHE} | Out-Null
+        New-Item -ItemType Directory -Force -Path ${env:CI_CACHE} | Out-Null
 
 - ps: |
         function Exec-External {
@@ -93,7 +92,7 @@ install:
           updateCygwin "${env:CI_CACHE}\setup-x86_64.exe" C:/cygwin64 $env:CYG_CACHE
 
 - ps: |
-function bash($bash_command) {
+        function bash($bash_command) {
             Write-Host "MSYS2-Bash: $bash_command"
             Exec-External {& C:\msys64\usr\bin\bash.exe --login -c $bash_command }
             Write-Host "MSYS2-Bash $bash_command " -NoNewLine
