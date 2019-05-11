@@ -23,6 +23,7 @@ environment:
       CHOCO_CACHE_UNIX: '%CI_CACHE_UNIX%/choco'
       WLK_INST_CACHE: '%CI_CACHE%\wlk_inst'
       WLK_INST_CACHE_UNIX: '%CI_CACHE_UNIX%/wlk_inst'
+# syntax see also https://github.com/dokan-dev/dokany/blob/cfe28787a67d3b6f13843e43b1bb462c9882181b/appveyor.yml
 
 # use an image with recent Mingw-w64 versions available on both architectures: https://www.appveyor.com/docs/windows-images-software/#mingw-msys-cygwin
 image: Visual Studio 2015
@@ -61,7 +62,9 @@ init:
 
 install:
 - ps: |
-        New-Item -ItemType Directory -Force -Path ${env:CI_CACHE} | Out-Null
+
+         New-Item -ItemType Directory -Force -Path ${env:CI_CACHE} | Out-Null
+
 - ps: |
         function Exec-External {
           param(
@@ -90,13 +93,13 @@ install:
           updateCygwin "${env:CI_CACHE}\setup-x86_64.exe" C:/cygwin64 $env:CYG_CACHE
 
 - ps: |
-        function bash($bash_command) {
+function bash($bash_command) {
             Write-Host "MSYS2-Bash: $bash_command"
             Exec-External {& C:\msys64\usr\bin\bash.exe --login -c $bash_command }
             Write-Host "MSYS2-Bash $bash_command " -NoNewLine
             Write-Host "[ OK ]" -ForegroundColor Green
           }
-          
+
           New-Item -Force -Type Directory $env:TAR_CACHE
           $unix_tar_cache = (Exec-External {& C:\msys64\usr\bin\bash.exe --login -c "cygpath '${env:TAR_CACHE}'"})
 
