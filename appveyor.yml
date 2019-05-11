@@ -6,7 +6,7 @@ version: 1.34.0-{build}
 image: Visual Studio 2015
 
 environment:
-   CCACHE_DIR: "%APPVEYOR_BUILD_FOLDER%\\.ccache"
+   CCACHE_DIR: "%APPVEYOR_BUILD_FOLDER%\.ccache"
 
 matrix:
   # We always want 32-bit and 64-bit compilation
@@ -25,18 +25,18 @@ cache:
   ###- C:\msys64\var\cache\pacman\pkg -> appveyor.yml, build-aria2.sh
   ###- C:\msys64\var\cache\pacman\pkg -> build-aria2.sh
   ###- expat-*.tar.bz2 -> build-aria2.sh
-- C:\msys64\var\cache\pacman\pkg
-- expat-*.tar.bz2
-- sqlite-autoconf-*.tar.gz
-- c-ares-*.tar.gz
-- libssh2-*.tar.gz
-###- .ccache
+- C:\msys64\var\cache\pacman\pkg -> appveyor.yml, build-aria2.sh
+- expat-*.tar.bz2 -> appveyor.yml, build-aria2.sh
+- sqlite-autoconf-*.tar.gz -> appveyor.yml, build-aria2.sh
+- c-ares-*.tar.gz -> appveyor.yml, build-aria2.sh
+- libssh2-*.tar.gz -> appveyor.yml, build-aria2.sh
+- .ccache -> appveyor.yml, build-aria2.sh
 
 init:
 - ps: IF ($env:APPVEYOR_REPO_BRANCH =! "develop") {$env:APPVEYOR_SAVE_CACHE_ON_ERROR = "true"}
 
 #see https://web.archive.org/web/20160719100305/www.appveyor.com/docs/how-to/http-proxy
-- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-http-proxy.ps1'))
+###- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-http-proxy.ps1'))
 
 - cmd: IF "%PLATFORM%" == "x86" SET PATH=C:\msys64\usr\bin;%PATH%
 - cmd: IF "%PLATFORM%" == "x64" SET PATH=C:\msys64\usr\bin;%PATH%
