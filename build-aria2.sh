@@ -55,6 +55,7 @@ get_last_version() {
     echo "$ret"
 }
 
+if [[ "$do_expat" ]]; then
 # expat
 expat_ver="$(clean_html_index https://sourceforge.net/projects/expat/files/expat/ 'expat/[0-9]+\.[0-9]+\.[0-9]+')"
 expat_ver="$(get_last_version "${expat_ver}" expat '2\.\d+\.\d+')"
@@ -70,7 +71,9 @@ cd "expat-${expat_ver}"
 make install -j$CPUCOUNT
 cd ..
 rm -rf "expat-${expat_ver}"
+fi
 
+if [[ "$do_sqlite" ]]; then
 # sqlite
 sqlite_ver=$(clean_html_index_sqlite "https://www.sqlite.org/download.html")
 [[ ! "$sqlite_ver" ]] && sqlite_ver="2018/sqlite-autoconf-3250300.tar.gz"
@@ -88,7 +91,10 @@ cd "${sqlite_name}"
 make install -j$CPUCOUNT
 cd ..
 rm -rf "${sqlite_name}"
+fi
 
+
+if [[ "$do_cares" ]]; then
 # c-ares: Async DNS support
 [[ ! "$cares_ver" ]] &&
     cares_ver="$(clean_html_index https://c-ares.haxx.se/)" &&
@@ -108,7 +114,10 @@ cd "c-ares-${cares_ver}" && \
 make install -j$CPUCOUNT
 cd ..
 rm -rf "c-ares-${cares_ver}"
+fi
 
+
+if [[ "$do_libssh2" ]]; then
 # libssh2
 [[ ! "$ssh_ver" ]] &&
     ssh_ver="$(clean_html_index https://libssh2.org/download/)" &&
@@ -129,6 +138,7 @@ cd "libssh2-${ssh_ver}"
 make install -j$CPUCOUNT
 cd ..
 rm -rf "libssh2-${ssh_ver}"
+fi
 
 if [[ -d aria2 ]]; then
     cd aria2
