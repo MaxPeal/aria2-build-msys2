@@ -21,10 +21,10 @@ cache:
   ###- C:\msys64\var\cache\pacman\pkg -> build-aria2.sh
   ###- expat-*.tar.bz2 -> build-aria2.sh
 - C:\msys64\var\cache\pacman\pkg
-- expat-*.tar.bz2
-- sqlite-autoconf-*.tar.gz
-- c-ares-*.tar.gz
-- libssh2-*.tar.gz
+#- expat-*.tar.bz2
+#- sqlite-autoconf-*.tar.gz
+#- c-ares-*.tar.gz
+#- libssh2-*.tar.gz
 
 
 init:
@@ -51,6 +51,10 @@ build_script:
     C:\msys64\usr\bin\pacman -Suu --noconfirm --ask=20
 
     C:\msys64\usr\bin\pacman -S --noconfirm --needed --ask=20 base-devel zlib-devel sqlite git unzip zip tar gmp gmp-devel libssh2 libssh2-devel openssl-devel
+    
+    C:\msys64\usr\bin\pacman -S --noconfirm --needed --ask=20 sqlite expat gmp c-ares winpthreads ibssh2
+    
+    C:\msys64\usr\bin\pacman -S --noconfirm --needed --ask=20 sqlite-devel expat-devel gmp-devel c-ares-devel winpthreads-devel ibssh2-devel
 
     REM :::#set MSYSTEM=MINGW64
     IF "%PLATFORM%" == "x64" set MSYSTEM=MINGW64
