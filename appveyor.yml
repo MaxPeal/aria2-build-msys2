@@ -52,9 +52,13 @@ build_script:
 
     C:\msys64\usr\bin\pacman -S --noconfirm --needed --ask=20 base-devel zlib-devel sqlite git unzip zip tar gmp gmp-devel libssh2 libssh2-devel openssl-devel
     
-    C:\msys64\usr\bin\pacman -S --noconfirm --needed --ask=20 sqlite expat gmp c-ares winpthreads ibssh2
+    C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 sqlite expat gmp c-ares winpthreads libssh2
     
-    C:\msys64\usr\bin\pacman -S --noconfirm --needed --ask=20 sqlite-devel expat-devel gmp-devel c-ares-devel winpthreads-devel ibssh2-devel
+    C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 sqlite-devel expat-devel gmp-devel c-ares-devel winpthreads-devel libssh2-devel
+    
+    C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 mingw-w64-x86_64-sqlite mingw-w64-x86_64-expat mingw-w64-x86_64-gmp mingw-w64-x86_64-c-ares mingw-w64-x86_64-winpthreads mingw-w64-x86_64-libssh2
+    
+    C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 mingw-w64-i686-sqlite mingw-w64-i686-expat mingw-w64-i686-gmp mingw-w64-i686-c-ares mingw-w64-i686-winpthreads mingw-w64-i686-libssh2
 
     REM :::#set MSYSTEM=MINGW64
     IF "%PLATFORM%" == "x64" set MSYSTEM=MINGW64
