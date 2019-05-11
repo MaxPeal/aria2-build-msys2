@@ -1,5 +1,7 @@
 version: 1.34.0-{build}
 
+Get-ChildItem env:
+
 # use http://yaml-online-parser.appspot.com/ for syntax checking
 
 environment:
