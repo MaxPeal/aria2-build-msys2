@@ -30,7 +30,7 @@ cache:
   ###- C:\msys64\var\cache\pacman\pkg -> build-aria2.sh
   ###- expat-*.tar.bz2 -> build-aria2.sh
 - C:\msys64\var\cache\pacman\pkg
-- '%DOKAN_CI_CACHE% -> FOOappveyor.yml'
+- 'CI_CACHE% -> FOOappveyor.yml'
 #- expat-*.tar.bz2
 #- sqlite-autoconf-*.tar.gz
 #- c-ares-*.tar.gz
