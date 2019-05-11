@@ -10,6 +10,16 @@ MINGW64)
     ;;
 esac
 
+echo #################################
+set
+##/c/ci_cache/
+echo #################################
+
+export do_expat=yes
+export do_sqlite=yes
+export do_cares=yes
+export do_libssh2=yes
+
 # workaround git user name and email not set
 GIT_USER_NAME="$(git config --global user.name)"
 GIT_USER_EMAIL="$(git config --global user.email)"
@@ -54,6 +64,7 @@ get_last_version() {
     [[ -n "$version" ]] && ret="$(echo "$ret" | /usr/bin/grep -oP "$version")"
     echo "$ret"
 }
+
 
 if [[ "$do_expat" ]]; then
 # expat
