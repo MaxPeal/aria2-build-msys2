@@ -70,6 +70,7 @@ install:
 
 
 build_script:
+- ps: bash -c "pacman -Syyuu --noconfirm pacman"
 - ps: bash -c "pacman -Syyuu --noconfirm --ask=20"
 - ps: bash -c "pacman -Suu --noconfirm --ask=20"
 - ps: bash -c "pacman --verbose -S --noconfirm --needed --ask=20 mingw-w64-i686-ccache mingw-w64-x86_64-ccache base-devel zlib-devel sqlite git unzip zip tar gmp gmp-devel libssh2 libssh2-devel openssl-devel"
