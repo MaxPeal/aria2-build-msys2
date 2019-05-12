@@ -86,6 +86,9 @@ get_last_version() {
     echo "$ret"
 }
 
+ccache -s
+ccache -p
+
 tar_dir_var=${TAR_CACHE_UNIX}/
 if [[ "$do_expat" ]]; then
 # expat
@@ -103,6 +106,8 @@ cd "expat-${expat_ver}"
 make install -j$CPUCOUNT
 cd ..
 rm -rf "expat-${expat_ver}"
+ccache -s
+ccache -p
 fi
 
 if [[ "$do_sqlite" ]]; then
@@ -123,6 +128,8 @@ cd "${sqlite_name}"
 make install -j$CPUCOUNT
 cd ..
 rm -rf "${sqlite_name}"
+ccache -s
+ccache -p
 fi
 
 
@@ -146,6 +153,8 @@ cd "c-ares-${cares_ver}" && \
 make install -j$CPUCOUNT
 cd ..
 rm -rf "c-ares-${cares_ver}"
+ccache -s
+ccache -p
 fi
 
 
@@ -170,6 +179,8 @@ cd "libssh2-${ssh_ver}"
 make install -j$CPUCOUNT
 cd ..
 rm -rf "libssh2-${ssh_ver}"
+ccache -s
+ccache -p
 fi
 
 if [[ -d aria2 ]]; then
@@ -210,4 +221,6 @@ make -j$CPUCOUNT
 strip -s src/aria2c.exe
 git checkout master
 git branch patch -D
+ccache -s
+ccache -p
 cd ..
