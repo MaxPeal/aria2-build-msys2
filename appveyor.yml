@@ -49,7 +49,7 @@ cache:
 ###- C:\msys64\var\cache\pacman\pkg -> appveyor.yml, build-aria2.sh
 ###- C:\msys64\var\cache\pacman\pkg -> build-aria2.sh
 ###- expat-*.tar.bz2 -> build-aria2.sh
-- C:\msys64 -> TEESTINGFOO
+## to big ### - C:\msys64 -> TEESTINGFOO
 ##- C:\msys64\home\appveyor\.ccache -> FOOappveyor.yml
 ##- C:\msys64\var\cache -> FOOappveyor.yml
 ##- C:\MinGW\var\cache\mingw-get\packages -> FOOappveyor.yml
