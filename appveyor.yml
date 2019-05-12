@@ -54,7 +54,7 @@ cache:
 ##- C:\msys64\var\cache -> FOOappveyor.yml
 ##- C:\MinGW\var\cache\mingw-get\packages -> FOOappveyor.yml
 ##- C:\msys64\var\cache\pacman\pkg -> FOOappveyor.yml
-- '%CI_CACHE% -> appveyor.yml'
+- "%CI_CACHE% -> appveyor.yml"
 #- expat-*.tar.bz2
 #- sqlite-autoconf-*.tar.gz
 #- c-ares-*.tar.gz
@@ -134,9 +134,9 @@ install:
           #
           # is displayed when trying to update followed by an exit rather
           # than selecting yes.
-     #off ##     for ($i = 0; $i -lt 3; $i++) {
-     #off ##       bash "pacman -Syuu --ask 20 --noconfirm --cache `"$unix_msys2_cache`""
-     #off ##     }
+          for ($i = 0; $i -lt 3; $i++) {
+            bash "pacman -Syuu --ask 20 --noconfirm --cache `"$unix_msys2_cache`""
+          }
           # install MinGW toolchain
           bash "pacman --sync --needed --noconfirm --cache `"$unix_msys2_cache`" mingw-w64-{x86_64,i686}-toolchain mingw-w64-{x86_64,i686}-cmake"
           bash "pacman --sync --needed --noconfirm --cache `"$unix_msys2_cache`" mingw-w64-{x86_64,i686}-ccache"
@@ -155,32 +155,32 @@ install:
 build_script:
 ###- cmd: >-
 ###    C:\msys64\usr\bin\pacman "-Syyuu --noconfirm --cache %unix_msys2_cache% --ask=20"
-#off ##- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -Syyuu --noconfirm --cache %MSYS2_CACHE_UNIX% --ask=20"
+- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -Syyuu --noconfirm --cache %MSYS2_CACHE_UNIX% --ask=20"
 
     ###C:\msys64\usr\bin\pacman "-Suu --noconfirm --cache %unix_msys2_cache% --ask=20"
-#off ##- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -Suu --noconfirm --cache %MSYS2_CACHE_UNIX% --ask=20"
+- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -Suu --noconfirm --cache %MSYS2_CACHE_UNIX% --ask=20"
 
     #C:\msys64\usr\bin\pacman "-S --noconfirm  --cache %unix_msys2_cache% --needed --ask=20 base-devel zlib-devel sqlite git unzip zip tar gmp gmp-devel libssh2 libssh2-devel openssl-devel"
-#off ##- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -S --noconfirm  --cache %MSYS2_CACHE_UNIX% --needed --ask=20 base-devel zlib-devel sqlite git unzip zip tar gmp gmp-devel libssh2 libssh2-devel openssl-devel"
+- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -S --noconfirm  --cache %MSYS2_CACHE_UNIX% --needed --ask=20 base-devel zlib-devel sqlite git unzip zip tar gmp gmp-devel libssh2 libssh2-devel openssl-devel"
 
     #REM C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 sqlite expat gmp c-ares winpthreads libssh2
     #C:\msys64\usr\bin\pacman "-S --noconfirm  --cache %unix_msys2_cache% --ask=20 sqlite expat gmp libssh2 ccache"
-#off ##- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -S --noconfirm  --cache %MSYS2_CACHE_UNIX% --ask=20 sqlite expat gmp libssh2 ccache"
+- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -S --noconfirm  --cache %MSYS2_CACHE_UNIX% --ask=20 sqlite expat gmp libssh2 ccache"
     
     #REM C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 sqlite-devel expat-devel gmp-devel c-ares-devel winpthreads-devel libssh2-devel
     #C:\msys64\usr\bin\pacman "-S --noconfirm  --cache %unix_msys2_cache% --ask=20 sqlite-devel expat-devel gmp-devel libssh2-devel"
-#off ##- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -S --noconfirm  --cache %MSYS2_CACHE_UNIX% --ask=20 gmp-devel libssh2-devel"
+- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -S --noconfirm  --cache %MSYS2_CACHE_UNIX% --ask=20 gmp-devel libssh2-devel"
     
     #REM C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 mingw-w64-x86_64-sqlite mingw-w64-x86_64-expat mingw-w64-x86_64-gmp mingw-w64-x86_64-c-ares mingw-w64-x86_64-winpthreads mingw-w64-x86_64-libssh2
     #C:\msys64\usr\bin\pacman "-S --noconfirm  --cache %unix_msys2_cache% --ask=20 mingw-w64-x86_64-sqlite mingw-w64-x86_64-expat mingw-w64-x86_64-gmp mingw-w64-x86_64-libssh2"
 #- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -S --noconfirm  --cache %MSYS2_CACHE_UNIX% --ask=20 mingw-w64-x86_64-sqlite mingw-w64-x86_64-expat mingw-w64-x86_64-gmp mingw-w64-x86_64-libssh2"
-#off ##- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -S --noconfirm  --cache %MSYS2_CACHE_UNIX% --ask=20 mingw-w64-x86_64-expat mingw-w64-x86_64-gmp mingw-w64-x86_64-libssh2"
+- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -S --noconfirm  --cache %MSYS2_CACHE_UNIX% --ask=20 mingw-w64-x86_64-expat mingw-w64-x86_64-gmp mingw-w64-x86_64-libssh2"
  
     
     #REM C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 mingw-w64-i686-sqlite mingw-w64-i686-expat mingw-w64-i686-gmp mingw-w64-i686-c-ares mingw-w64-i686-winpthreads mingw-w64-i686-libssh2
     #REM C:\msys64\usr\bin\pacman "-S --noconfirm  --cache %unix_msys2_cache% --ask=20 mingw-w64-i686-sqlite mingw-w64-i686-expat mingw-w64-i686-gmp mingw-w64-i686-libssh2"
 #- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -S --noconfirm  --cache %MSYS2_CACHE_UNIX% --ask=20 mingw-w64-i686-sqlite mingw-w64-i686-expat mingw-w64-i686-gmp mingw-w64-i686-libssh2"
-#off ##- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -S --noconfirm  --cache %MSYS2_CACHE_UNIX% --ask=20 mingw-w64-i686-expat mingw-w64-i686-gmp mingw-w64-i686-libssh2"
+- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -S --noconfirm  --cache %MSYS2_CACHE_UNIX% --ask=20 mingw-w64-i686-expat mingw-w64-i686-gmp mingw-w64-i686-libssh2"
     #REM C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ccache -s -p"
 
     #REM :::#set MSYSTEM=MINGW64
