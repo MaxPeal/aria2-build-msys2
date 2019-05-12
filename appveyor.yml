@@ -134,9 +134,9 @@ install:
           #
           # is displayed when trying to update followed by an exit rather
           # than selecting yes.
-          for ($i = 0; $i -lt 3; $i++) {
-            bash "pacman -Syuu --ask 20 --noconfirm --cache `"$unix_msys2_cache`""
-          }
+          #of# for ($i = 0; $i -lt 3; $i++) {
+          #of#   bash "pacman -Syuu --ask 20 --noconfirm --cache `"$unix_msys2_cache`""
+          #of# }
           # install MinGW toolchain
           bash "pacman --sync --needed --noconfirm --cache `"$unix_msys2_cache`" mingw-w64-{x86_64,i686}-toolchain mingw-w64-{x86_64,i686}-cmake"
           bash "pacman --sync --needed --noconfirm --cache `"$unix_msys2_cache`" mingw-w64-{x86_64,i686}-ccache"
