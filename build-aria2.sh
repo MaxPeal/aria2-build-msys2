@@ -6,19 +6,29 @@ case $MSYSTEM in
 MINGW32)
     export MINGW_PACKAGE_PREFIX=mingw-w64-i686
     export HOST=i686-w64-mingw32
+    #export PATH=/c/msys64/mingw32/lib/ccache/bin:$PATH
+	#export PATH=/mingw32/lib/ccache/bin:$PATH
+	#/c/msys64/usr/lib/ccache/bin
     ;;
 MINGW64)
     export MINGW_PACKAGE_PREFIX=mingw-w64-x86_64
     export HOST=x86_64-w64-mingw32
+	C:\msys64\mingw64\lib\ccache\bin
+    #export PATH=/c/msys64/mingw64/lib/ccache/bin:$PATH
+	#export PATH=/mingw64/lib/ccache/bin:$PATH
     ;;
 esac
 
 echo #################################
 set
+ccache -s
+ccache -p
 which gcc
+gcc
 ##/c/ci_cache/
-export PATH=/usr/lib/ccache:$PATH
+export PATH=/usr/lib/ccache/bin:$PATH
 which gcc
+gcc
 ccache -s
 ccache -p
 echo #################################
