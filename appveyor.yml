@@ -61,10 +61,10 @@ init:
 - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 install:
-- cmd: >-
-    C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -Syyuu --noconfirm --cache %MSYS2_CACHE_UNIX% --ask=20"
-    C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -Syyuu --noconfirm --cache "%MSYS2_CACHE_UNIX%" --ask=20"
-    C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -Syyuu --noconfirm --cache '%MSYS2_CACHE_UNIX%' --ask=20"
+#- cmd: >-
+- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -Syyuu --noconfirm --cache %MSYS2_CACHE_UNIX% --ask=20"
+- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -Syyuu --noconfirm --cache "%MSYS2_CACHE_UNIX%" --ask=20"
+- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -Syyuu --noconfirm --cache '%MSYS2_CACHE_UNIX%' --ask=20"
 
 
 - ps: |
