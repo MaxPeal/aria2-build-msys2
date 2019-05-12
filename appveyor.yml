@@ -99,7 +99,7 @@ install:
             Write-Host "[ OK ]" -ForegroundColor Green
           }
 
-- ps: IF ($env:DO_updateCygwin == "yes") {updateCygwin "'${env:CI_CACHE}'\setup-x86_64.exe" C:/cygwin64 '$env:CYG_CACHE'}
+- ps: IF ($env:DO_updateCygwin = "yes") {updateCygwin "'${env:CI_CACHE}'\setup-x86_64.exe" C:/cygwin64 '$env:CYG_CACHE'}
 
 - ps: |
         function bash($bash_command) {
