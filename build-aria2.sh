@@ -76,7 +76,7 @@ get_last_version() {
     echo "$ret"
 }
 
-tar_dir_var=$TAR_CACHE_UNIX/
+tar_dir_var=${TAR_CACHE_UNIX}/
 if [[ "$do_expat" ]]; then
 # expat
 expat_ver="$(clean_html_index https://sourceforge.net/projects/expat/files/expat/ 'expat/[0-9]+\.[0-9]+\.[0-9]+')"
