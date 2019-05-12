@@ -54,7 +54,7 @@ cache:
 ##- C:\msys64\var\cache -> FOOappveyor.yml
 ##- C:\MinGW\var\cache\mingw-get\packages -> FOOappveyor.yml
 ##- C:\msys64\var\cache\pacman\pkg -> FOOappveyor.yml
-- '%CI_CACHE% -> FOOappveyor.yml'
+- '%CI_CACHE% -> appveyor.yml'
 #- expat-*.tar.bz2
 #- sqlite-autoconf-*.tar.gz
 #- c-ares-*.tar.gz
