@@ -37,8 +37,9 @@ pacman -S --noconfirm --needed --cache "$unix_msys2_cache" $MINGW_PACKAGE_PREFIX
     $MINGW_PACKAGE_PREFIX-gmp \
     $MINGW_PACKAGE_PREFIX-c-ares \
     $MINGW_PACKAGE_PREFIX-winpthreads \
-    $MINGW_PACKAGE_PREFIX-sqlite \
     $MINGW_PACKAGE_PREFIX-libssh2
+
+###error: target not found: mingw-w64-i686-sqlite   #     $MINGW_PACKAGE_PREFIX-sqlite \ 
 
 PREFIX=/usr/local/$HOST
 CPUCOUNT=$(grep -c ^processor /proc/cpuinfo)
