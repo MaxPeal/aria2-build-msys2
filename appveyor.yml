@@ -54,7 +54,7 @@ cache:
 ##- C:\msys64\var\cache -> FOOappveyor.yml
 ##- C:\MinGW\var\cache\mingw-get\packages -> FOOappveyor.yml
 ##- C:\msys64\var\cache\pacman\pkg -> FOOappveyor.yml
-- "%CI_CACHE% -> appveyor.yml"
+- "%CI_CACHE% -> FOOappveyor.yml"
 #- expat-*.tar.bz2
 #- sqlite-autoconf-*.tar.gz
 #- c-ares-*.tar.gz
@@ -64,6 +64,7 @@ cache:
 init:
 - ps: IF ($env:APPVEYOR_REPO_BRANCH =! "develop") {$env:APPVEYOR_SAVE_CACHE_ON_ERROR = "true"}
 ### RDP DEBUG - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 install:
 #- cmd: >-
@@ -214,3 +215,4 @@ skip_commits:
     - '.gitingore'
 on_finish:
 #  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
