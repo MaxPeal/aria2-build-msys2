@@ -62,7 +62,9 @@ init:
 
 install:
 - cmd: >-
-    C:\msys64\usr\bin\bash.exe --login -c "pacman -Syyuu --noconfirm --cache %MSYS2_CACHE_UNIX% --ask=20"
+    C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -Syyuu --noconfirm --cache %MSYS2_CACHE_UNIX% --ask=20"
+    C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -Syyuu --noconfirm --cache "%MSYS2_CACHE_UNIX%" --ask=20"
+    C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -Syyuu --noconfirm --cache '%MSYS2_CACHE_UNIX%' --ask=20"
 
 
 - ps: |
