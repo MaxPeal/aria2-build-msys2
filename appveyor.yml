@@ -164,7 +164,7 @@ build_script:
     
     #REM C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 sqlite-devel expat-devel gmp-devel c-ares-devel winpthreads-devel libssh2-devel
     #C:\msys64\usr\bin\pacman "-S --noconfirm  --cache %unix_msys2_cache% --ask=20 sqlite-devel expat-devel gmp-devel libssh2-devel"
-- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -S --noconfirm  --cache %MSYS2_CACHE_UNIX% --ask=20 sqlite-devel expat-devel gmp-devel libssh2-devel"
+- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -S --noconfirm  --cache %MSYS2_CACHE_UNIX% --ask=20 gmp-devel libssh2-devel"
     
     #REM C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 mingw-w64-x86_64-sqlite mingw-w64-x86_64-expat mingw-w64-x86_64-gmp mingw-w64-x86_64-c-ares mingw-w64-x86_64-winpthreads mingw-w64-x86_64-libssh2
     #C:\msys64\usr\bin\pacman "-S --noconfirm  --cache %unix_msys2_cache% --ask=20 mingw-w64-x86_64-sqlite mingw-w64-x86_64-expat mingw-w64-x86_64-gmp mingw-w64-x86_64-libssh2"
