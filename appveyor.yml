@@ -155,7 +155,7 @@ install:
 build_script:
 ###- cmd: >-
 ###    C:\msys64\usr\bin\pacman "-Syyuu --noconfirm --cache %unix_msys2_cache% --ask=20"
-- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -Syyuu --noconfirm --cache %MSYS2_CACHE_UNIX% --ask=20"
+#off ##- cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -Syyuu --noconfirm --cache %MSYS2_CACHE_UNIX% --ask=20"
 
     ###C:\msys64\usr\bin\pacman "-Suu --noconfirm --cache %unix_msys2_cache% --ask=20"
 - cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -Suu --noconfirm --cache %MSYS2_CACHE_UNIX% --ask=20"
