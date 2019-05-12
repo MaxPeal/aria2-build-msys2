@@ -158,11 +158,11 @@ build_script:
     #C:\msys64\usr\bin\pacman "-S --noconfirm  --cache %unix_msys2_cache% --needed --ask=20 base-devel zlib-devel sqlite git unzip zip tar gmp gmp-devel libssh2 libssh2-devel openssl-devel"
 - cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -S --noconfirm  --cache %unix_msys2_cache% --needed --ask=20 base-devel zlib-devel sqlite git unzip zip tar gmp gmp-devel libssh2 libssh2-devel openssl-devel"
 
-    REM C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 sqlite expat gmp c-ares winpthreads libssh2
+    #REM C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 sqlite expat gmp c-ares winpthreads libssh2
     #C:\msys64\usr\bin\pacman "-S --noconfirm  --cache %unix_msys2_cache% --ask=20 sqlite expat gmp libssh2 ccache"
 - cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -S --noconfirm  --cache %unix_msys2_cache% --ask=20 sqlite expat gmp libssh2 ccache"
     
-    REM C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 sqlite-devel expat-devel gmp-devel c-ares-devel winpthreads-devel libssh2-devel
+    #REM C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 sqlite-devel expat-devel gmp-devel c-ares-devel winpthreads-devel libssh2-devel
     #C:\msys64\usr\bin\pacman "-S --noconfirm  --cache %unix_msys2_cache% --ask=20 sqlite-devel expat-devel gmp-devel libssh2-devel"
 - cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -S --noconfirm  --cache %unix_msys2_cache% --ask=20 sqlite-devel expat-devel gmp-devel libssh2-devel"
     
@@ -173,23 +173,23 @@ build_script:
     #REM C:\msys64\usr\bin\pacman -S --noconfirm --ask=20 mingw-w64-i686-sqlite mingw-w64-i686-expat mingw-w64-i686-gmp mingw-w64-i686-c-ares mingw-w64-i686-winpthreads mingw-w64-i686-libssh2
     #REM C:\msys64\usr\bin\pacman "-S --noconfirm  --cache %unix_msys2_cache% --ask=20 mingw-w64-i686-sqlite mingw-w64-i686-expat mingw-w64-i686-gmp mingw-w64-i686-libssh2"
 - cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && pacman -S --noconfirm  --cache %unix_msys2_cache% --ask=20 mingw-w64-i686-sqlite mingw-w64-i686-expat mingw-w64-i686-gmp mingw-w64-i686-libssh2"
-    REM C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ccache -s -p"
+    #REM C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ccache -s -p"
 
-    REM :::#set MSYSTEM=MINGW64
+    #REM :::#set MSYSTEM=MINGW64
 - cmd: IF "%PLATFORM%" == "x64" set MSYSTEM=MINGW64
 
     #REM C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ./build-aria2.sh"
 - cmd:     C:\msys64\usr\bin\bash.exe --login -c "set -vx && cd \"$APPVEYOR_BUILD_FOLDER\" && exec ./build-aria2.sh"
 
-    REM C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ccache -s -p"
+    #REM C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ccache -s -p"
 - cmd:    7z a aria2c.7z .\aria2\src\aria2c.exe
 
 - cmd:    appveyor PushArtifact aria2c.7z
 
-    REM rd /s /q aria2
+    #REM rd /s /q aria2
 - cmd:    ren aria2 aria2-x64
 
-    REM ::::#set MSYSTEM=MINGW32
+    #REM ::::#set MSYSTEM=MINGW32
 - cmd:    IF "%PLATFORM%" == "x86" set MSYSTEM=MINGW32
 
     C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec ./build-aria2.sh"
