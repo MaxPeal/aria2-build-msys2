@@ -1,4 +1,7 @@
 #!bash
+
+set -x
+
 case $MSYSTEM in
 MINGW32)
     export MINGW_PACKAGE_PREFIX=mingw-w64-i686
@@ -12,7 +15,12 @@ esac
 
 echo #################################
 set
+which gcc
 ##/c/ci_cache/
+export PATH=/usr/lib/ccache:$PATH
+which gcc
+ccache -s
+ccache -p
 echo #################################
 
 export do_expat=yes
