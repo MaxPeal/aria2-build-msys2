@@ -44,17 +44,17 @@ skip_tags: true
 
 cache:
 # see https://www.appveyor.com/docs/build-cache/
-  - C:\ProgramData\chocolatey\bin -> appveyor.yml
-  - C:\ProgramData\chocolatey\lib -> appveyor.yml
-  ###- C:\msys64\var\cache\pacman\pkg -> appveyor.yml, build-aria2.sh
-  ###- C:\msys64\var\cache\pacman\pkg -> build-aria2.sh
-  ###- expat-*.tar.bz2 -> build-aria2.sh
-  - C:\msys64 -> TEESTINGFOO
- ##- C:\msys64\home\appveyor\.ccache -> FOOappveyor.yml
- ##- C:\msys64\var\cache -> FOOappveyor.yml
- ##- C:\MinGW\var\cache\mingw-get\packages -> FOOappveyor.yml
- ##- C:\msys64\var\cache\pacman\pkg -> FOOappveyor.yml
- - '%CI_CACHE% -> FOOappveyor.yml'
+- C:\ProgramData\chocolatey\bin -> appveyor.yml
+- C:\ProgramData\chocolatey\lib -> appveyor.yml
+###- C:\msys64\var\cache\pacman\pkg -> appveyor.yml, build-aria2.sh
+###- C:\msys64\var\cache\pacman\pkg -> build-aria2.sh
+###- expat-*.tar.bz2 -> build-aria2.sh
+- C:\msys64 -> TEESTINGFOO
+##- C:\msys64\home\appveyor\.ccache -> FOOappveyor.yml
+##- C:\msys64\var\cache -> FOOappveyor.yml
+##- C:\MinGW\var\cache\mingw-get\packages -> FOOappveyor.yml
+##- C:\msys64\var\cache\pacman\pkg -> FOOappveyor.yml
+- '%CI_CACHE% -> FOOappveyor.yml'
 #- expat-*.tar.bz2
 #- sqlite-autoconf-*.tar.gz
 #- c-ares-*.tar.gz
